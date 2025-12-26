@@ -1,0 +1,98 @@
+/* Basic Page Layout */
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* Form Container */
+.container {
+    width: 450px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Grid Layout */
+.reg-form {
+    display: grid;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+/* Input, Select, Textarea styling */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+/* Placeholder style */
+::placeholder {
+    color: #aaa;
+}
+
+/* Focus Effect */
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #0059ff;
+    box-shadow: 0 0 5px rgba(0,89,255,0.5);
+}
+
+/* Checkbox & Radio Group */
+.checkbox-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.checkbox-group input {
+    margin-right: 6px;
+}
+
+/* Button Styling */
+.btn {
+    padding: 12px;
+    border: none;
+    width: 100%;
+    background: #0059ff;
+    color: white;
+    font-size: 17px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* Hover effect */
+.btn:hover {
+    background: #003ebd;
+}

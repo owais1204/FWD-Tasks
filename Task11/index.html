@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Task 11 — Weather Dashboard (Modules + Async)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header container">
+    <h1 class="brand">☀️ Weather Dashboard</h1>
+
+    <div class="controls">
+      <div class="search">
+        <input id="q" type="search" placeholder="Search city (e.g., Vijayawada, Chennai, Delhi)…" autocomplete="off" />
+        <div id="suggestions" class="suggestions" role="listbox" aria-label="Search suggestions"></div>
+      </div>
+
+      <button id="themeBtn" class="btn" type="button" aria-pressed="false" title="Toggle theme">🌗</button>
+    </div>
+  </header>
+
+  <main class="container content">
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+
+    <section id="current" class="panel card" aria-live="polite" aria-busy="false">
+      <!-- current weather card gets injected here -->
+    </section>
+
+    <section id="forecast" class="grid" aria-live="polite">
+      <!-- forecast day cards get injected here -->
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    © <span id="y"></span> Task 11 — Weather via Open-Meteo & ES Modules
+  </footer>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>

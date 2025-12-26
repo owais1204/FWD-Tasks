@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional Greetings</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Personalized Greeting</h1>
+
+    <div class="form-card">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Enter your name">
+
+        <label for="mood">Your Mood</label>
+        <select id="mood">
+            <option value="">Select your mood</option>
+            <option value="happy">Happy</option>
+            <option value="sad">Sad</option>
+            <option value="excited">Excited</option>
+            <option value="tired">Tired</option>
+        </select>
+
+        <button onclick="generateGreeting()">Greet Me</button>
+    </div>
+
+    <div id="greeting" class="greeting hidden"></div>
+</div>
+
+<script src="script.js">

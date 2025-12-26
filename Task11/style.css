@@ -1,0 +1,155 @@
+/* ============================================================
+   Task 11 — Weather Dashboard (CSS)
+   Focus: responsive layout (media queries) + subtle animations
+   ============================================================ */
+
+/* ---------- Theme tokens ---------- */
+:root {
+  --bg: #f7f9fc;
+  --text: #0f172a;
+  --muted: #5e6b7a;
+  --surface: #ffffff;
+  --line: rgba(15,23,42,.12);
+  --primary: #2563eb;
+  --primary-2: #00c2ff;
+  --radius: 16px;
+  --shadow: 0 12px 28px rgba(0,0,0,.12);
+}
+
+[data-theme="dark"] {
+  --bg: #0b0f14;
+  --text: #e9f0f7;
+  --muted: #b7c6d9;
+  --surface: #0f1621;
+  --line: rgba(255,255,255,.12);
+  --primary: #6a5cff;
+  --primary-2: #00d4ff;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(700px 300px at 12% -10%, color-mix(in oklab, var(--primary) 16%, white 84%) 0, transparent 60%),
+    radial-gradient(800px 340px at 90% 0%, color-mix(in oklab, var(--primary-2) 16%, white 84%) 0, transparent 60%),
+    var(--bg);
+  font: 400 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.container { width: min(1120px, 100% - 32px); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 18px 0 8px;
+}
+.brand { margin: 0; font-weight: 800; font-size: clamp(22px, 2.6vw, 28px); }
+.controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+.search { position: relative; }
+.search input {
+  width: min(480px, 72vw);
+  padding: .7rem .9rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fbfdff;
+  outline: none;
+}
+.search input:focus {
+  border-color: color-mix(in oklab, var(--primary) 60%, white 30%);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 28%, white 72%);
+}
+
+.suggestions {
+  position: absolute; inset: auto 0 0 0; transform: translateY(100%);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 12px; margin-top: 6px; overflow: hidden; z-index: 10;
+  display: none;
+}
+.suggestions.show { display: block; }
+.suggestion {
+  padding: .55rem .75rem; cursor: pointer; border-bottom: 1px solid var(--line);
+  background: #fff;
+}
+[data-theme="dark"] .suggestion { background: #0e1723; }
+.suggestion:hover { background: color-mix(in oklab, var(--primary) 8%, white 92%); }
+
+.btn {
+  padding: .55rem .8rem; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line); background: #eef3ff; color: #0b1b3a;
+}
+
+/* ---------- Content ---------- */
+.content { padding: 8px 0 36px; }
+
+.status { min-height: 1.25em; color: var(--muted); margin: 6px 0 10px; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+
+/* Current panel */
+.panel {
+  padding: 14px; display: grid; gap: 10px; margin-bottom: 12px;
+  animation: fadeIn .35s ease both;
+}
+.current-head {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px; justify-content: space-between;
+}
+.place { font-weight: 800; font-size: clamp(18px, 2.4vw, 22px); }
+.meta  { color: var(--muted); font-size: 14px; }
+temp { font-weight: 800; }
+.current-row {
+  display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center;
+}
+.wx-icon { font-size: 38px; }
+.current-kv { display: flex; gap: 12px; flex-wrap: wrap; color: var(--muted); }
+
+/* Forecast grid */
+.grid {
+  display: grid; gap: 12px;
+  grid-template-columns: repeat(5, 1fr);
+}
+@media (max-width: 980px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+
+.day {
+  padding: 12px; display: grid; gap: 6px; text-align: center;
+  transform: translateY(6px); opacity: 0;
+  animation: pop .35s ease forwards;
+}
+.day:nth-child(1){ animation-delay: .05s }
+.day:nth-child(2){ animation-delay: .1s }
+.day:nth-child(3){ animation-delay: .15s }
+.day:nth-child(4){ animation-delay: .2s }
+.day:nth-child(5){ animation-delay: .25s }
+
+.day .wx { font-size: 30px; }
+.day .t { font-weight: 800; }
+.day .r { color: var(--muted); }
+
+/* ---------- Animations ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pop {
+  0% { opacity: 0; transform: translateY(8px) scale(.98); }
+  60%{ opacity: 1; transform: translateY(-2px) scale(1.02); }
+  100%{ opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  color: var(--muted); border-top: 1px solid var(--line);
+  padding: 20px 0 36px; text-align: center;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .panel, .day { animation: none !important }
+}

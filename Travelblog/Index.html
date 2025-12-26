@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wander With Owais — Travel Blog</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+    body { background: #e8edf3; color: #222; line-height: 1.7; overflow-x: hidden; }
+
+    img { width: 100%; display: block; }
+
+    /* header + hero kept similar to your previous upgraded version */
+    header {
+      background: rgba(10,88,202,0.95);
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 3px 15px rgba(0,0,0,0.25);
+    }
+
+    nav ul { display: flex; gap: 30px; justify-content: center; list-style: none; margin-top: 12px; }
+    nav a { color: white; text-decoration: none; font-weight: 600; position: relative; padding-bottom: 3px; }
+    nav a::after { content: ""; position: absolute; bottom: -3px; left: 0; height: 2px; width: 0%; background: white; transition: 0.3s; }
+    nav a:hover::after { width: 100%; }
+
+    .hero {
+      height: 430px;
+      background: url("https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80") center/cover;
+      background-size: 115%;
+      animation: heroZoom 14s ease-in-out infinite alternate;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; color: white; position: relative; padding: 20px;
+    }
+    @keyframes heroZoom { from { background-size: 115%; } to { background-size: 130%; } }
+    .hero::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+    .hero h1 { font-size: 3.1rem; font-weight: 700; z-index: 2; }
+    .hero p { font-size: 1.2rem; max-width: 650px; z-index: 2; opacity: 0.9; margin-top: 8px; }
+    .btn { padding: 12px 30px; background: white; color: #0d6efd; border-radius: 40px; text-decoration: none; margin-top: 20px; font-weight: 600; z-index: 2; box-shadow: 0 6px 18px rgba(0,0,0,0.2); transition: 0.3s ease; }
+    .btn:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,.3); }
+
+    /* main layout */
+    .container { max-width: 1150px; margin: auto; padding: 40px 20px; }
+    .section-title { font-size: 2.2rem; font-weight: 700; text-align: center; background: linear-gradient(135deg,#0d6efd,#4ea4ff); -webkit-background-clip: text; color: transparent; margin-bottom: 30px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+
+    .post {
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-radius: 18px; overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      transition: 0.35s ease; border: 1px solid rgba(255,255,255,0.6);
+    }
+    .post:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 14px 35px rgba(0,0,0,0.25); }
+
+    .small-img { height: 160px; object-fit: cover; }
+    .post-content { padding: 22px; }
+    .post h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; color: #0d6efd; }
+
+    /* budget badge */
+    .budget { display:inline-block; background:#0d6efd; color:white; padding:6px 14px; border-radius:20px; margin-top:8px; font-size:.9rem; font-weight:600; box-shadow:0 4px 10px rgba(0,0,0,0.2); }
+
+    /* price table: responsive horizontal scroll */
+    .price-wrap { margin-top:12px; overflow:auto; border-radius:8px; }
+    .price-table {
+      min-width: 520px;
+      width:100%;
+      border-collapse: collapse;
+      font-size:0.95rem;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,250,0.98));
+    }
+    .price-table th, .price-table td {
+      padding:10px 12px; text-align:left; border-bottom:1px solid #eee;
+    }
+    .price-table th {
+      background: rgba(13,110,253,0.06); color:#0d6efd; font-weight:700;
+    }
+    .price-table tr:last-child td { border-bottom: none; }
+    .tier { font-weight:700; color:#0d6efd; }
+
+    /* small-screen tweak */
+    @media(max-width:560px){
+      .hero { height: 360px; }
+      .hero h1 { font-size: 2.4rem; }
+      .price-table { min-width: 480px; }
+    }
+
+    footer { background:#111; color:white; text-align:center; padding:22px; font-size:.95rem; margin-top:45px; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Wander With Owais</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Destinations</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Explore The World With Owais</h1>
+    <p>Discover destinations, travel tips, stories, and breathtaking adventures from around the globe.</p>
+    <a href="#" class="btn">Start Exploring</a>
+  </section>
+
+  <!-- DOMESTIC DESTINATIONS -->
+  <div class="container">
+    <h2 class="section-title">🇮🇳 Domestic Destinations</h2>
+
+    <div class="grid">
+
+      <!-- Kashmir (replaced with stable Unsplash URL) -->
+      <article class="post">
+        <img class="small-img" src="https://images.unsplash.com/photo-1512813195386-6cf811ad3542?auto=format&fit=crop&w=1200&q=80" alt="Kashmir Dal Lake" />
+        <div class="post-content">
+          <h3>Kashmir – Paradise on Earth</h3>
+          <p>Dal Lake shikaras, snow mountains, and heavenly views.</p>
+          <span class="budget">Budget: ₹25,000 (avg)</span>
+
+          <div class="price-wrap" aria-hidden="false">
+            <table class="price-table" aria-label="Kashmir price comparison">
+              <thead>
+                <tr>
+                  <th>Tier</th>
+                  <th>Hotels</th>
+                  <th>Food</th>
+                  <th>Transport</th>
+                  <th>Total (approx)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="tier">Economy</td>
+                  <td>₹4,000</td>
+                  <td>₹3,000</td>
+                  <td>₹5,000</td>
+                  <td>₹12,000</td>
+                </tr>
+                <tr>
+                  <td class="tier">Standard</td>
+                  <td>₹8,000</td>
+                  <td>₹4,000</td>
+                  <td>₹6,000</td>
+                  <td>₹18,000</td>
+                </tr>
+                <tr>
+                  <td class="tier">Luxury</td>
+                  <td>₹18,000</td>
+                  <td>₹6,000</td>
+                  <td>₹8,000</td>
+                  <td>₹32,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- Goa -->
+      <article class="post">
+        <img class="small-img" src="https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?auto=format&fit=crop&w=1200&q=80" alt="Goa Beach" />
+        <div class="post-content">
+          <h3>Goa – India's Beach Paradise</h3>
+          <p>Golden beaches, nightlife, seafood, and a tropical vibe.</p>
+          <span class="budget">Budget: ₹18,000 (avg)</span>
+
+          <div class="price-wrap">
+            <table class="price-table" aria-label="Goa price comparison">
+              <thead>
+                <tr>
+                  <th>Tier</th>
+                  <th>Hotels</th>
+                  <th>Food</th>
+                  <th>Transport</th>
+                  <th>Total (approx)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="tier">Economy</td>
+                  <td>₹3,500</td>
+                  <td>₹2,500</td>
+                  <td>₹4,000</td>
+                  <td>₹10,000</td>
+                </tr>
+                <tr>
+                  <td class="tier">Standard</td>
+                  <td>₹6,000</td>
+                  <td>₹3,500</td>
+                  <td>₹5,000</td>
+                  <td>₹14,500</td>
+                </tr>
+                <tr>
+                  <td class="tier">Luxury</td>
+                  <td>₹14,000</td>
+                  <td>₹5,000</td>
+                  <td>₹6,500</td>
+                  <td>₹25,500</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- Himalayas -->
+      <article class="post">
+        <img class="small-img" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80" alt="Himalayas" />
+        <div class="post-content">
+          <h3>Himalayan Adventure Trek</h3>
+          <p>Snowy peaks, scenic trails, and a thrilling experience.</p>
+          <span class="budget">Budget: ₹30,000 (avg)</span>
+
+          <div class="price-wrap">
+            <table class="price-table" aria-label="Himalayas price comparison">
+              <thead>
+                <tr>
+                  <th>Tier</th>
+                  <th>Hotels</th>
+                  <th>Food</th>
+                  <th>Transport</th>
+                  <th>Total (approx)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="tier">Economy</td>
+                  <td>₹6,000</td>
+                  <td>₹3,500</td>
+                  <td>₹6,000</td>
+                  <td>₹15,500</td>
+                </tr>
+                <tr>
+                  <td class="tier">Standard</td>
+                  <td>₹12,000</td>
+                  <td>₹5,000</td>
+                  <td>₹8,000</td>
+                  <td>₹25,000</td>
+                </tr>
+                <tr>
+                  <td class="tier">Luxury</td>
+                  <td>₹22,000</td>
+                  <td>₹7,000</td>
+                  <td>₹10,000</td>
+                  <td>₹39,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- INTERNATIONAL DESTINATIONS -->
+  <div class="container">
+    <h2 class="section-title">🌍 International Destinations</h2>
+
+    <div class="grid">
+
+      <!-- Maldives -->
+      <article class="post">
+        <img class="" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80" alt="Maldives" />
+        <div class="post-content">
+          <h3>Maldives Escape</h3>
+          <p>Crystal-clear waters, ocean villas, and peaceful island life.</p>
+          <span class="budget">Budget: ₹1,10,000 (avg)</span>
+
+          <div class="price-wrap">
+            <table class="price-table" aria-label="Maldives price comparison">
+              <thead>
+                <tr>
+                  <th>Tier</th>
+                  <th>Hotels</th>
+                  <th>Food</th>
+                  <th>Transport</th>
+                  <th>Total (approx)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="tier">Economy</td>
+                  <td>₹35,000</td>
+                  <td>₹12,000</td>
+                  <td>₹25,000</td>
+                  <td>₹72,000</td>
+                </tr>
+                <tr>
+                  <td class="tier">Standard</td>
+                  <td>₹55,000</td>
+                  <td>₹15,000</td>
+                  <td>₹30,000</td>
+                  <td>₹1,00,000</td>
+                </tr>
+                <tr>
+                  <td class="tier">Luxury</td>
+                  <td>₹95,000</td>
+                  <td>₹20,000</td>
+                  <td>₹40,000</td>
+                  <td>₹1,55,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- Paris -->
+      <article class="post">
+        <img src="https://images.unsplash.com/photo-1639519306888-419e98f8a5b6?auto=format&fit=crop&w=1200&q=80" alt="Paris" />
+        <div class="post-content">
+          <h3>Evenings in Paris</h3>
+          <p>Romantic vibes, Eiffel Tower charm, and glowing night views.</p>
+          <span class="budget">Budget: ₹1,80,000 (avg)</span>
+
+          <div class="price-wrap">
+            <table class="price-table" aria-label="Paris price comparison">
+              <thead>
+                <tr>
+                  <th>Tier</th>
+                  <th>Hotels</th>
+                  <th>Food</th>
+                  <th>Transport</th>
+                  <th>Total (approx)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="tier">Economy</td>
+                  <td>₹55,000</td>
+                  <td>₹18,000</td>
+                  <td>₹35,000</td>
+                  <td>₹1,08,000</td>
+                </tr>
+                <tr>
+                  <td class="tier">Standard</td>
+                  <td>₹95,000</td>
+                  <td>₹22,000</td>
+                  <td>₹45,000</td>
+                  <td>₹1,62,000</td>
+                </tr>
+                <tr>
+                  <td class="tier">Luxury</td>
+                  <td>₹1,45,000</td>
+                  <td>₹28,000</td>
+                  <td>₹55,000</td>
+                  <td>₹2,28,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- Japan -->
+      <article class="post">
+        <img src="https://images.unsplash.com/photo-1505060290126-4d01bd6c5d08?auto=format&fit=crop&w=1200&q=80" alt="Japan" />
+        <div class="post-content">
+          <h3>Japan – Tokyo & Mt. Fuji</h3>
+          <p>Neon streets, cherry blossoms, shrines, and iconic Mt. Fuji.</p>
+          <span class="budget">Budget: ₹1,50,000 (avg)</span>
+
+          <div class="price-wrap">
+            <table class="price-table" aria-label="Japan price comparison">
+              <thead>
+                <tr>
+                  <th>Tier</th>
+                  <th>Hotels</th>
+                  <th>Food</th>
+                  <th>Transport</th>
+                  <th>Total (approx)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="tier">Economy</td>
+                  <td>₹40,000</td>
+                  <td>₹18,000</td>
+                  <td>₹30,000</td>
+                  <td>₹88,000</td>
+                </tr>
+                <tr>
+                  <td class="tier">Standard</td>
+                  <td>₹70,000</td>
+                  <td>₹25,000</td>
+                  <td>₹40,000</td>
+                  <td>₹1,35,000</td>
+                </tr>
+                <tr>
+                  <td class="tier">Luxury</td>
+                  <td>₹1,10,000</td>
+                  <td>₹35,000</td>
+                  <td>₹55,000</td>
+                  <td>₹2,00,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Wander With Owais — All Rights Reserved
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Responsive Info Cards</title>
+
+  <style>
+    /* =========================
+       TOKENS
+       ========================= */
+    :root {
+      --bg: #020617;
+      --bg-accent: #0f172a;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --card-bg: rgba(15, 23, 42, 0.9);
+      --card-border: rgba(148, 163, 184, 0.4);
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.18);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.9);
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --font-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    /* =========================
+       BASE
+       ========================= */
+    * , *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-base);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 0% 0%, #38bdf8 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, #e879f9 0, transparent 55%),
+        radial-gradient(circle at 0% 100%, #22c55e 0, transparent 55%),
+        linear-gradient(135deg, var(--bg-accent), var(--bg)); /* multi‑radial “mesh” style gradient[web:83][web:87] */
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: var(--space-6) var(--space-4);
+    }
+
+    h1, h2 {
+      margin: 0;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    /* =========================
+       LAYOUT
+       ========================= */
+    .page {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    .page-header {
+      margin-bottom: var(--space-5);
+    }
+
+    .page-title {
+      font-size: 2.1rem;
+    }
+
+    .page-subtitle {
+      margin-top: var(--space-2);
+      font-size: 0.95rem;
+    }
+
+    .card-grid {
+      display: grid;
+      gap: var(--space-4);
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding-inline: var(--space-3);
+      }
+    }
+
+    /* =========================
+       COMPONENTS
+       ========================= */
+    .card {
+      background:
+        radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.09), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.18), transparent 55%),
+        var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-soft);
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform 160ms ease-out,
+        box-shadow 180ms ease-out,
+        border-color 160ms ease-out;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 10% -10%, rgba(248, 250, 252, 0.2), transparent 55%);
+      opacity: 0;
+      transition: opacity 220ms ease-out;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.95);
+      border-color: rgba(56, 189, 248, 0.7);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+    }
+
+    .card-body {
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      align-self: flex-start;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--accent);
+      padding: 0.45rem 1.1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      background-color: var(--accent);
+      color: #0f172a;
+      box-shadow: 0 10px 26px rgba(56, 189, 248, 0.55);
+      transition:
+        background-color 140ms ease-out,
+        transform 120ms ease-out,
+        box-shadow 150ms ease-out;
+    }
+
+    .btn:hover {
+      background-color: #0ea5e9;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(56, 189, 248, 0.65);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--accent);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background-color: var(--accent-soft);
+    }
+
+    /* Collapsible header + button */
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .card-toggle {
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      padding: 0.25rem 0.7rem;
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--accent);
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition:
+        background-color 140ms ease-out,
+        border-color 140ms ease-out,
+        transform 100ms ease-out;
+    }
+
+    .card-toggle::after {
+      content: "▾";
+      font-size: 0.7rem;
+      transition: transform 160ms ease-out;
+    }
+
+    .card-toggle[aria-expanded="true"]::after {
+      transform: rotate(-180deg);
+    }
+
+    .card-toggle:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* Collapsible panel animation */
+    .card-body-wrapper {
+      overflow: hidden;
+      transition: max-height 200ms ease-out;
+    }
+
+    /* =========================
+       UTILITIES
+       ========================= */
+    .muted {
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="page-header">
+      <h1 class="page-title">Responsive Info Cards</h1>
+      <p class="page-subtitle muted">
+        Example of clean, maintainable cards with smooth collapsible details.
+      </p>
+    </header>
+
+    <section class="card-grid">
+      <!-- 1 -->
+      <article class="card">
+        <header class="card-header">
+          <h2 class="card-title">Performance</h2>
+          <button
+            class="card-toggle"
+            aria-expanded="false"
+            aria-controls="card-body-1"
+          >
+            Details
+          </button>
+        </header>
+        <div class="card-body-wrapper" id="card-body-1" hidden>
+          <p class="card-body muted">
+            Optimize loading, painting, and interactivity to keep pages fast on all devices.
+          </p>
+          <button class="btn">Learn more</button>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="card">
+        <header class="card-header">
+          <h2 class="card-title">Accessibility</h2>
+          <button
+            class="card-toggle"
+            aria-expanded="false"
+            aria-controls="card-body-2"
+          >
+            Details
+          </button>
+        </header>
+        <div class="card-body-wrapper" id="card-body-2" hidden>
+          <p class="card-body muted">
+            Use semantic HTML, ARIA, and color contrast to reach every user.
+          </p>
+          <button class="btn btn-outline">Read guide</button>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="card">
+        <header class="card-header">
+          <h2 class="card-title">Design Systems</h2>
+          <button
+            class="card-toggle"
+            aria-expanded="false"
+            aria-controls="card-body-3"
+          >
+            Details
+          </button>
+        </header>
+        <div class="card-body-wrapper" id="card-body-3" hidden>
+          <p class="card-body muted">
+            Reusable tokens and components keep products consistent and scalable.
+          </p>
+          <button class="btn">Explore</button>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="card">
+        <header class="card-header">
+          <h2 class="card-title">Animations</h2>
+          <button
+            class="card-toggle"
+            aria-expanded="false"
+            aria-controls="card-body-4"
+          >
+            Details
+          </button>
+        </header>
+        <div class="card-body-wrapper" id="card-body-4" hidden>
+          <p class="card-body muted">
+            Use subtle motion to guide focus without hurting performance.
+          </p>
+          <button class="btn btn-outline">See examples</button>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="card">
+        <header class="card-header">
+          <h2 class="card-title">Testing</h2>
+          <button
+            class="card-toggle"
+            aria-expanded="false"
+            aria-controls="card-body-5"
+          >
+            Details
+          </button>
+        </header>
+        <div class="card-body-wrapper" id="card-body-5" hidden>
+          <p class="card-body muted">
+            Automated tests catch regressions in layout, color, and behavior.
+          </p>
+          <button class="btn">Start now</button>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="card">
+        <header class="card-header">
+          <h2 class="card-title">Documentation</h2>
+          <button
+            class="card-toggle"
+            aria-expanded="false"
+            aria-controls="card-body-6"
+          >
+            Details
+          </button>
+        </header>
+        <div class="card-body-wrapper" id="card-body-6" hidden>
+          <p class="card-body muted">
+            Clear docs describe usage, constraints, and code patterns for the team.
+          </p>
+          <button class="btn btn-outline">View docs</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    // Accessible disclosure pattern with aria-expanded[web:46][web:58]
+    const toggles = document.querySelectorAll(".card-toggle");
+
+    toggles.forEach((btn) => {
+      const panelId = btn.getAttribute("aria-controls");
+      const panel = document.getElementById(panelId);
+
+      // initial collapsed state
+      btn.setAttribute("aria-expanded", "false");
+      panel.hidden = true;
+      panel.style.maxHeight = "0";
+
+      btn.addEventListener("click", () => {
+        const expanded = btn.getAttribute("aria-expanded") === "true";
+        const next = !expanded;
+        btn.setAttribute("aria-expanded", String(next));
+
+        if (next) {
+          panel.hidden = false;
+          const full = panel.scrollHeight;
+          panel.style.maxHeight = full + "px";
+        } else {
+          panel.style.maxHeight = "0";
+          panel.addEventListener(
+            "transitionend",
+            () => {
+              if (btn.getAttribute("aria-expanded") === "false") {
+                panel.hidden = true;
+              }
+            },
+            { once: true }
+          );
+        }
+      });
+    });
+  </script>
+</body>
+</html>

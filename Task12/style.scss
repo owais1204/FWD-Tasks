@@ -1,0 +1,348 @@
+// ----------------------------
+// SCSS variables & mixins
+// ----------------------------
+$radius-md: 12px;
+$space-xs: 0.4rem;
+$space-sm: 0.75rem;
+$space-md: 1rem;
+$space-lg: 1.5rem;
+
+$transition-fast: 0.2s ease-out;
+$shadow-card: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+$font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+// Light / Dark colours as SCSS variables
+$light-bg: #f4f5fb;
+$light-surface: #ffffff;
+$light-text: #111827;
+$light-accent: #2563eb;
+
+$dark-bg: #020617;
+$dark-surface: #0b1120;
+$dark-text: #e5e7eb;
+$dark-accent: #38bdf8;
+
+// Reusable "card" using mixin
+@mixin card {
+  border-radius: $radius-md;
+  padding: $space-md;
+  box-shadow: $shadow-card;
+  background-color: var(--surface);
+}
+
+// ----------------------------
+// CSS custom properties (themes)
+// ----------------------------
+:root {
+  --bg: #{$light-bg};
+  --surface: #{$light-surface};
+  --text: #{$light-text};
+  --accent: #{$light-accent};
+  --accent-soft: rgba(37, 99, 235, 0.12);
+  --danger: #dc2626;
+}
+
+[data-theme="dark"] {
+  --bg: #{$dark-bg};
+  --surface: #{$dark-surface};
+  --text: #{$dark-text};
+  --accent: #{$dark-accent};
+  --accent-soft: rgba(56, 189, 248, 0.14);
+  --danger: #fb7185;
+}
+
+// ----------------------------
+// Base
+// ----------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-main;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app {
+  max-width: 960px;
+  margin: 1.5rem auto;
+  padding: 0 $space-md $space-lg;
+}
+
+// ----------------------------
+// Header
+// ----------------------------
+.app__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $space-lg;
+}
+
+.app__brand {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+
+  .app__logo {
+    font-size: 1.8rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin: 0;
+  }
+}
+
+.theme-toggle {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  padding: $space-xs $space-md;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-xs;
+  transition: background-color $transition-fast, transform $transition-fast, box-shadow $transition-fast;
+
+  &:hover {
+    background: var(--accent-soft);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.35);
+  }
+}
+
+// ----------------------------
+// Layout
+// ----------------------------
+.app__main {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: $space-lg;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ----------------------------
+// Products
+// ----------------------------
+.products {
+  h2 {
+    margin-bottom: $space-sm;
+    font-size: 1.1rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: $space-md;
+  }
+}
+
+.product-card {
+  @include card;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: fade-in 0.4s ease-out forwards;
+
+  &__title {
+    font-weight: 600;
+    font-size: 0.98rem;
+  }
+
+  &__price {
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+
+  &__footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $space-sm;
+  }
+}
+
+// ----------------------------
+// Buttons
+// ----------------------------
+.btn {
+  border-radius: 999px;
+  border: none;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color $transition-fast,
+    color $transition-fast,
+    transform $transition-fast,
+    box-shadow $transition-fast;
+
+  &--primary {
+    background: linear-gradient(135deg, var(--accent), #4f46e5);
+    color: #f9fafb;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.45);
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.5);
+    }
+  }
+
+  &--outline {
+    border: 1px solid rgba(148, 163, 184, 0.8);
+    background: transparent;
+    color: var(--text);
+
+    &:hover {
+      background: rgba(148, 163, 184, 0.12);
+    }
+  }
+
+  &--danger {
+    background: var(--danger);
+    color: #f9fafb;
+
+    &:hover {
+      filter: brightness(1.05);
+    }
+  }
+}
+
+// ----------------------------
+// Cart
+// ----------------------------
+.cart {
+  @include card;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0;
+    margin-bottom: $space-sm;
+    font-size: 1.05rem;
+  }
+
+  &__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  &__count--bump {
+    animation: bump 0.3s ease-out;
+  }
+
+  &__items {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 $space-md 0;
+    max-height: 260px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-xs $space-sm;
+    border-radius: 10px;
+    background: rgba(148, 163, 184, 0.12);
+    font-size: 0.85rem;
+  }
+
+  &__item-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item-name {
+    font-weight: 500;
+  }
+
+  &__item-meta {
+    font-size: 0.78rem;
+    opacity: 0.85;
+  }
+
+  &__item-right {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+  }
+
+  &__item-price {
+    font-weight: 600;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px dashed rgba(148, 163, 184, 0.8);
+    padding-top: $space-sm;
+    margin-bottom: $space-sm;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+}
+
+.cart-empty {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+// Reuse button styles for cart remove button
+.cart-remove {
+  @extend .btn;
+  @extend .btn--danger;
+  padding-inline: 0.5rem;
+  font-size: 0.8rem;
+}
+
+// ----------------------------
+// Animations
+// ----------------------------
+@keyframes fade-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

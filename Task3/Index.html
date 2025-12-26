@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Community Event Registration</h2>
+
+        <form class="reg-form">
+
+            <!-- Full Name -->
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" placeholder="Enter your full name">
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="98765 43210">
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="yourmail@example.com">
+            </div>
+
+            <!-- Age -->
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" placeholder="Enter your age">
+            </div>
+
+            <!-- Address -->
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" rows="3" placeholder="Enter your full address"></textarea>
+            </div>
+
+            <!-- City -->
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" placeholder="Your city">
+            </div>
+
+            <!-- State -->
+            <div class="form-group">
+                <label for="state">State</label>
+                <select id="state">
+                    <option>Select State</option>
+                    <option>Andhra Pradesh</option>
+                    <option>Telangana</option>
+                    <option>Karnataka</option>
+                    <option>Tamil Nadu</option>
+                    <option>Maharashtra</option>
+                </select>
+            </div>
+
+            <!-- Event Date -->
+            <div class="form-group">
+                <label for="event-date">Event Date</label>
+                <input type="date" id="event-date">
+            </div>
+
+            <!-- Event Type -->
+            <div class="form-group">
+                <label for="event">Event Type</label>
+                <select id="event">
+                    <option value="">Select Event</option>
+                    <option>Workshop</option>
+                    <option>Sports Activity</option>
+                    <option>Cultural Program</option>
+                    <option>Community Meet</option>
+                </select>
+            </div>
+
+            <!-- Preferences -->
+            <div class="form-group">
+                <label>Preferences</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox"> Need Parking</label>
+                    <label><input type="checkbox"> Want Snacks</label>
+                    <label><input type="checkbox"> VIP Seat</label>
+                </div>
+            </div>
+
+            <!-- Gender (Radio buttons) -->
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="checkbox-group">
+                    <label><input type="radio" name="g"> Male</label>
+                    <label><input type="radio" name="g"> Female</label>
+                    <label><input type="radio" name="g"> Other</label>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn">Register Now</button>
+
+        </form>
+    </div>
+
+</body>
+</html>

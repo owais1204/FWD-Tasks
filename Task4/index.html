@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Task 4 — Themed Layout (SCSS + CSS Variables)</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Task 4: Themed layout with SCSS variables/mixins + CSS custom properties -->
+</head>
+<body>
+  <header class="site-header container">
+    <h1 class="brand">Acme Starter</h1>
+
+    <!-- Accessible theme switch -->
+    <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle color theme">
+      <span class="track" aria-hidden="true">
+        <span class="thumb"></span>
+      </span>
+      <span class="label">Theme</span>
+    </button>
+  </header>
+
+  <main class="container content">
+    <section class="intro card">
+      <h2>Beautifully Themed</h2>
+      <p>
+        This page uses <strong>SCSS</strong> for structure (variables, mixins, nesting) and
+        <strong>CSS custom properties</strong> for live theming. Switch themes above.
+      </p>
+      <ul class="features">
+        <li>Design tokens via <code>:root</code> variables</li>
+        <li>Light/Dark with <code>[data-theme]</code> attribute</li>
+        <li>Responsive layout (Grid + Flex)</li>
+      </ul>
+    </section>
+
+    <section class="grid">
+      <!-- Card 1 -->
+      <article class="card">
+        <img class="hero" alt="Abstract gradient"
+             src="https://phrutos.com/hubfs/design-tokens-phrutos.png"
+        <h3>Design Tokens</h3>
+        <p>Color, spacing, and typography live in CSS variables and are overridden per theme.</p>
+        <a href="#" class="btn">Read More</a>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card">
+        <img class="hero" alt="Abstract violet"
+             src="https://tse1.mm.bing.net/th/id/OIP.tGLicnak8EGpubQkKeGMNwHaEK?pid=Api&P=0&h=180"
+        <h3>SCSS Mixins</h3>
+        <p>Use mixins for shadows, rounded corners, and fluid type—compile once, reuse everywhere.</p>
+        <a href="#" class="btn">Docs</a>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card">
+        <img class="hero" alt="Abstract mint"
+             src="https://media.geeksforgeeks.org/wp-content/uploads/20230926172158/Accessibility-in-UI-UX-Design-768.png"
+        <h3>Accessible UI</h3>
+        <p>High contrast, focus rings, and large tap targets come standard in this starter.</p>
+        <a href="#" class="btn">Checklist</a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    © <span id="y"></span> Acme Starter
+  </footer>
+
+  <script src="theme.js" defer></script>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Task 8 — OOP Product Showcase (SCSS + Theming)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header container">
+    <h1 class="brand">OOP Product Showcase</h1>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle theme">
+      <span class="track"><span class="thumb"></span></span><span class="label">Theme</span>
+    </button>
+  </header>
+
+  <main class="container content">
+    <section class="toolbar">
+      <div class="filters">
+        <label>
+          <span class="sr-only">Search products</span>
+          <input id="q" type="search" placeholder="Search by title or category…" />
+        </label>
+        <select id="sort">
+          <option value="default">Sort: Default</option>
+          <option value="price-asc">Price ↑</option>
+          <option value="price-desc">Price ↓</option>
+          <option value="rating-desc">Rating ↓</option>
+          <option value="rating-asc">Rating ↑</option>
+        </select>
+      </div>
+      <button id="seed" class="btn">Load Sample Data</button>
+    </section>
+
+    <section aria-live="polite">
+      <div id="empty" class="empty card">No products yet. Click <strong>Load Sample Data</strong>.</div>
+      <div id="grid" class="grid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">© <span id="y"></span> Task 8 — OOP + SCSS + Theming</footer>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script src="script.js" defer></script>
+</body>
+</html>

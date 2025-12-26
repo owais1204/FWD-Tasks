@@ -1,0 +1,272 @@
+/* --- 1. Variables & Reset --- */
+:root {
+    --primary: #0f172a;       /* Dark Navy */
+    --accent: #3b82f6;        /* Electric Blue */
+    --accent-hover: #2563eb;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --white: #ffffff;
+    --bg-light: #f8fafc;
+    --gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Professional Font */
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scroll between sections */
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* --- 2. Glassmorphism Navbar --- */
+.site-header {
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent */
+    backdrop-filter: blur(10px);          /* Blurs content behind it */
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+}
+.highlight { color: var(--accent); }
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* Modern Pill Button */
+.btn-nav {
+    background: var(--primary);
+    color: var(--white) !important;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(15, 23, 42, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.btn-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(15, 23, 42, 0.3);
+}
+
+/* --- 3. Modern Hero Section --- */
+.hero {
+    height: 90vh; /* Nearly full screen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: radial-gradient(circle at top right, #eef2ff, white);
+    padding: 0 20px;
+}
+
+.badge {
+    background: #e0e7ff;
+    color: var(--accent);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.text-gradient {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 12px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+}
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-secondary {
+    background: white;
+    color: var(--text-dark);
+    border: 1px solid #e2e8f0;
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* --- 4. Services (Grid Cards) --- */
+.section-padding { padding: 80px 0; }
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+.section-header h2 { font-size: 2rem; margin-bottom: 10px; }
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f1f5f9;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.card .icon { font-size: 2.5rem; margin-bottom: 20px; }
+.card h3 { margin-bottom: 10px; font-size: 1.25rem; }
+.card p { color: var(--text-light); font-size: 0.95rem; }
+
+/* --- 5. Footer --- */
+.site-footer {
+    background: var(--primary);
+    color: #94a3b8;
+    padding-top: 60px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #334155;
+}
+
+.footer-logo { color: white; margin-bottom: 15px; }
+.footer-desc { font-size: 0.9rem; max-width: 300px; }
+
+.footer-heading {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+address p, .contact-link {
+    font-style: normal;
+    margin-bottom: 8px;
+    display: block;
+    color: #94a3b8;
+    text-decoration: none;
+}
+.contact-link:hover { color: var(--accent); }
+
+.social-buttons { display: flex; gap: 10px; }
+.social-buttons a {
+    background: rgba(255,255,255,0.05);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: 0.3s;
+}
+.social-buttons a:hover { background: var(--accent); }
+
+.footer-bottom {
+    text-align: center;
+    padding: 25px;
+    font-size: 0.85rem;
+}
+
+/* --- 6. Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    
+    .navbar-container {
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+    }
+    .nav-links {
+        margin-top: 15px;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+    .btn-nav { width: 100%; text-align: center; }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .footer-desc { margin: 0 auto; }
+    .social-buttons { justify-content: center; }
+}

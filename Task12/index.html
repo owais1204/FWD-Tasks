@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mini Shop – Task 12</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- This is the CSS compiled from style.scss -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="light">
+  <div class="app">
+    <header class="app__header">
+      <div class="app__brand">
+        <span class="app__logo">🛒</span>
+        <h1>Mini Shop</h1>
+      </div>
+      <button id="theme-toggle" class="theme-toggle" type="button">
+        🌞 Light
+      </button>
+    </header>
+
+    <main class="app__main">
+      <!-- Products Section -->
+      <section class="products">
+        <h2>Products</h2>
+        <div id="product-list" class="products__grid">
+          <!-- JS will inject product cards here -->
+        </div>
+      </section>
+
+      <!-- Cart Section -->
+      <aside class="cart">
+        <h2 class="cart__title">
+          Cart
+          <span id="cart-count" class="cart__count">0</span>
+        </h2>
+        <ul id="cart-items" class="cart__items">
+          <!-- JS will inject cart items here -->
+        </ul>
+        <div class="cart__footer">
+          <span>Total:</span>
+          <span id="cart-total">₹0.00</span>
+        </div>
+        <button id="clear-cart" class="btn btn--outline" type="button">
+          Clear Cart
+        </button>
+      </aside>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

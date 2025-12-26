@@ -1,0 +1,132 @@
+body {
+    margin: 0;
+    background: #0e0e0e;
+    font-family: Arial, sans-serif;
+}
+
+/* MAIN LAYOUT */
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* LEFT PRODUCT CARDS SECTION */
+.products {
+    width: 65%;
+}
+
+.card {
+    display: flex;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.card img {
+    width: 180px;
+    height: 180px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+/* INFORMATION INSIDE CARD */
+.info {
+    flex: 1;
+}
+
+.tag {
+    background: #e6c35c;
+    color: black;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.label {
+    color: #e6c35c;
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.price {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.desc {
+    color: #cfcfcf;
+    margin-top: 5px;
+    width: 90%;
+}
+
+/* BUTTONS */
+.btns {
+    margin-top: 15px;
+}
+
+.view, .cart {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.view {
+    background: #444;
+    color: white;
+}
+
+.cart {
+    background: #e6c35c;
+    color: black;
+}
+
+.view:hover {
+    background: #555;
+}
+
+.cart:hover {
+    opacity: 0.8;
+}
+
+/* RIGHT SIDEBAR */
+.sidebar {
+    width: 30%;
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    height: 430px;
+    text-align: center;
+}
+
+.sidebar h1 {
+    color: #e6c35c;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    background: #222;
+    color: white;
+}
+
+.dropdown select {
+    width: 90%;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 6px;
+    border: none;
+    background: #222;
+    color: white;
+}

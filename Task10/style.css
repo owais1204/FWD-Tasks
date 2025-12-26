@@ -1,0 +1,239 @@
+/* Basic reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Global colors & background */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  min-height: 100vh;
+  padding: 40px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: radial-gradient(circle at top, #2d9bf0 0, #131726 40%, #050610 100%);
+  color: #0f172a;
+}
+
+/* App container */
+.app {
+  background: linear-gradient(145deg, #ffffff, #f3f6ff);
+  width: 100%;
+  max-width: 460px;
+  padding: 24px 24px 26px;
+  border-radius: 18px;
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.35),
+    0 0 0 1px rgba(148, 163, 184, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative gradient blur */
+.app::before {
+  content: "";
+  position: absolute;
+  inset: -80px;
+  background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.25), transparent 55%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Content layer */
+.app > * {
+  position: relative;
+  z-index: 1;
+}
+
+.app h1 {
+  text-align: center;
+  margin-bottom: 18px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #0f172a;
+}
+
+/* Form styling */
+#task-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+#task-input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  font-size: 0.95rem;
+  background: rgba(248, 250, 252, 0.9);
+  color: #0f172a;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+#task-input::placeholder {
+  color: #9ca3af;
+}
+
+#task-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.35),
+              0 0 0 6px rgba(59, 130, 246, 0.12);
+}
+
+/* Primary Add button */
+#task-form button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: #f9fafb;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.35);
+  transform: translateY(0);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+  white-space: nowrap;
+}
+
+#task-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(79, 70, 229, 0.4);
+  filter: brightness(1.05);
+}
+
+#task-form button:active {
+  transform: translateY(0);
+  box-shadow: 0 7px 14px rgba(79, 70, 229, 0.35);
+}
+
+/* Task list */
+#task-list {
+  list-style: none;
+}
+
+/* Single task */
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(248, 250, 252, 0.88);
+  margin-bottom: 9px;
+  transition:
+    background 0.18s ease,
+    transform 0.12s ease,
+    box-shadow 0.16s ease,
+    border-color 0.18s ease;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06);
+}
+
+.task:hover {
+  background: rgba(255, 255, 255, 0.98);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.14);
+  border-color: rgba(129, 140, 248, 0.4);
+}
+
+/* Task text */
+.task-text {
+  flex: 1;
+  font-size: 0.95rem;
+  word-break: break-word;
+  color: #111827;
+}
+
+/* Completed task style */
+.task.completed {
+  background: linear-gradient(135deg, #ecfdf5, #eff6ff);
+  border-color: rgba(34, 197, 94, 0.45);
+}
+
+.task.completed .task-text {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+/* Action buttons */
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-left: 12px;
+}
+
+.actions button {
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    filter 0.12s ease;
+  white-space: nowrap;
+}
+
+/* Done button (green) */
+.btn-done {
+  background: linear-gradient(135deg, #22c55e, #16a34a);color: #ecfdf5;
+  box-shadow: 0 8px 16px rgba(22, 163, 74, 0.35);
+}
+
+.btn-done:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(22, 163, 74, 0.45);
+  filter: brightness(1.03);
+}
+
+.btn-done:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 12px rgba(22, 163, 74, 0.35);
+}
+
+/* Delete button (red) */
+.btn-delete {
+  background: linear-gradient(135deg, #f97373, #ef4444);
+  color: #fef2f2;
+  box-shadow: 0 8px 16px rgba(239, 68, 68, 0.32);
+}
+
+.btn-delete:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(239, 68, 68, 0.4);
+  filter: brightness(1.03);
+}
+
+.btn-delete:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 12px rgba(239, 68, 68, 0.35);
+}
+
+/* Small screen tweaks */
+@media (max-width: 480px) {
+  .app {
+    padding: 20px 18px 22px;
+  }
+
+  #task-form {
+    gap: 8px;
+  }
+
+  #task-form button {
+    padding-inline: 14px;
+  }
+}

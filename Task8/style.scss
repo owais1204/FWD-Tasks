@@ -1,0 +1,156 @@
+/* =====================================================================
+   Task 8 — SCSS with variables, mixins, nesting + CSS custom properties
+   ▶ SCSS vs CSS (used here):
+     • $variables and @mixin/@include are **SCSS-only (compile-time)**.
+     • Nesting (e.g., .card { .title {…} }) is **SCSS**; compiler flattens.
+     • CSS custom properties (e.g., --bg) are **runtime** for theming.
+   Compile:
+     sass styles.scss styles.css --style expanded --no-source-map
+   ===================================================================== */
+
+/* -------- SCSS variables (compile-time constants) -------- */
+$radius: 16px;
+$radius-sm: 12px;
+$shadow: 0 12px 28px rgba(0,0,0,.12);
+$shadow-soft: 0 10px 24px rgba(0,0,0,.10);
+
+/* -------- SCSS mixins (reusable style chunks) -------- */
+@mixin card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: $radius;
+  box-shadow: $shadow;
+}
+@mixin fluid($min, $max) {
+  font-size: clamp($min, 2.6vw, $max);
+}
+
+/* -------- CSS custom properties (runtime, themeable) -------- */
+:root {
+  --bg: #f7f9fc;
+  --text: #0f172a;
+  --muted: #5e6b7a;
+  --surface: #ffffff;
+  --line: rgba(15,23,42,.12);
+  --primary: #2563eb;
+  --primary-2: #00c2ff;
+  --ring: color-mix(in oklab, var(--primary) 30%, white 70%);
+}
+[data-theme="dark"] {
+  --bg: #0b0f14;
+  --text: #e9f0f7;
+  --muted: #b7c6d9;
+  --surface: #0f1621;
+  --line: rgba(255,255,255,.12);
+  --primary: #6a5cff;
+  --primary-2: #00d4ff;
+  --ring: color-mix(in oklab, var(--primary) 35%, white 65%);
+}
+
+/* -------- Base -------- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(900px 380px at 12% -10%, color-mix(in oklab, var(--primary) 18%, white 82%) 0, transparent 60%),
+    radial-gradient(900px 380px at 88% -10%, color-mix(in oklab, var(--primary-2) 18%, white 82%) 0, transparent 60%),
+    var(--bg);
+  font: 400 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+.container { width: min(1120px, 100% - 32px); margin-inline: auto; }
+
+/* -------- Header with toggle (nested SCSS) -------- */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 18px 0 8px;
+}
+.brand { margin: 0; @include fluid(22px, 28px); }
+
+.theme-toggle {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: .35rem .5rem; border: 1px solid var(--line);
+  border-radius: $radius-sm; background: var(--surface); cursor: pointer;
+
+  .track {
+    --size: 38px;
+    position: relative; width: calc(var(--size) * 1.6); height: var(--size);
+    background: linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.02));
+    border: 1px solid var(--line); border-radius: 999px;
+
+    .thumb {
+      position: absolute; inset: 3px auto 3px 3px;
+      width: calc(var(--size) - 6px); height: calc(var(--size) - 6px);
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      border-radius: 999px; transition: transform .25s ease; box-shadow: $shadow-soft;
+    }
+  }
+  &[aria-pressed="true"] .thumb { transform: translateX(100%); }
+}
+
+/* -------- Toolbar -------- */
+.content { padding: 8px 0 36px; }
+.toolbar {
+  display: flex; justify-content: space-between; gap: 10px; margin-bottom: 12px;
+
+  .filters {
+    display: flex; gap: 8px; align-items: center;
+
+    input[type="search"], select {
+      background: #fbfdff; border: 1px solid var(--line); border-radius: $radius-sm; padding: .55rem .7rem;
+    }
+  }
+}
+.btn {
+  display: inline-block; border: 1px solid var(--line);
+  padding: .55rem .9rem; border-radius: 999px; text-decoration: none;
+  color: #0b1b3a; background: color-mix(in oklab, var(--primary) 10%, white 90%);
+}
+
+/* -------- Grid of products -------- */
+.grid {
+  display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr);
+  @media (max-width: 980px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 640px) { grid-template-columns: 1fr; }
+}
+.card { @include card; padding: 10px; display: grid; gap: 8px; }
+.empty { @include card; padding: 14px; text-align: center; }
+
+.product {
+  display: grid; gap: 8px;
+
+  &-media {
+    position: relative;
+    img {
+      width: 100%; aspect-ratio: 3/2; object-fit: cover; border-radius: $radius-sm;
+      background: #f2f6ff;
+    }
+    .badge {
+      position: absolute; left: 8px; top: 8px;
+      padding: .25rem .55rem; border-radius: 999px; border: 1px solid var(--line);
+      background: #fff; color: #0b1b3a; font-size: 12px;
+    }
+  }
+
+  &-title { margin: 2px 0 0; font-weight: 700; }
+  &-meta  { color: var(--muted); font-size: 14px; }
+  &-rating { color: #f59e0b; font-weight: 700; }
+
+  &-footer {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    .price { font-weight: 800; }
+    .old   { color: var(--muted); text-decoration: line-through; margin-left: 6px; font-weight: 500; }
+    .btn   { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; border-color: transparent; }
+  }
+}
+
+/* -------- Footer -------- */
+.site-footer {
+  color: var(--muted); border-top: 1px solid var(--line); padding: 20px 0 36px; text-align: center;
+}
+
+/* A11y helpers */
+.sr-only {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); border: 0;
+}
